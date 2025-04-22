@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Web Template</title>
+        <style>
+
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+
+            #content {
+                background-color: white;
+                height: 100%;
+                display: flex;
+            }
+
+            #leftPanel {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 25px;
+            }
+
+            #source {
+                flex: 1;
+                resize: none;
+                margin: 25px;
+            }
+
+            #rightPanel {
+                font-family: sans-serif;
+                font-size: 10px;
+                color: white;
+                background-color: #111111;
+                flex: 1;
+                border-left: 1px solid black;
+            }
+
+            #rightPanel > div,
+            #rightPanel > pre {
+                margin: 0;
+                margin-bottom: 15px;
+                background-color: #222222;
+                padding: 15px;
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+            }
+
+            #feedback {
+                margin-left: 10px;
+            }
+
+            #output {
+                min-height: 30px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <iframe id="sandbox" sandbox="allow-scripts" style="display: none;" srcdoc="
+            <html><head><script>
+
+                window.onload = function() {
+                    const workerCode = `
+                        importScripts('https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js')
+
+                        function post(type, data) {
+                            self.postMessage({type, data})
+                        }
+
+                        async function initializePyodide() {
+                            self.pyodide = await loadPyodide()
+                            self.pyodide.setStdout({
+                                batched: msg => {
+                                    post('stdout', msg)
+                                }
+                            })
+                            self.pyodideReady = true
+                            post('ready', '')
+                        }
+
+                        self.onmessage = async function(e) {
+                            if (!self.pyodideReady)
+                                return
+                            try {
+                                const globals = self.pyodide.toPy({})
+                                self.pyodide.globals.set(
+                                    'result',
+                                    self.pyodide.runPython(e.data, {globals})
+                                )
+                                post(
+                                    'exec_complete',
+                                    self.pyodide.runPython('import json; json.dumps(result)')
+                                )
+                            } catch(error) {
+                                post('stdout', error.message)
+                                post('exec_error', 'crash')
+                            }
+                        }
+
+                        initializePyodide()
+                    `
+
+                    const blob = new Blob([workerCode], {type: 'application/javascript'})
+                    const workerUrl = URL.createObjectURL(blob)
+                    const worker = new Worker(workerUrl)
+
+                    worker.onmessage = function(e) {
+                        window.parent.postMessage(e.data, '*')
+                    }
+
+                    window.addEventListener('message', function(e) {
+                        worker.postMessage(e.data)
+                    })
+                }
+
+            </script></head></html>
+        "></iframe>
+
+        <script>
+            class PythonRuntime {
+                #statusEventListeners
+
+                #execTimeout
+                #execStdoutCounter
+                #execResolve
+                #execReject
+                #exec(type, data, newResolve = undefined) {
+                    clearTimeout(this.#execTimeout)
+                    switch (type) {
+                        case 'resolve':
+                            this.#execResolve(data)
+                            break
+                        case 'reject':
+                            this.#execReject(data)
+                            break
+                    }
+                    this.#execResolve = newResolve
+                    this.#execReject = undefined
+                    if (this.#execResolve === undefined)
+                        this.#publishStatusEvent('ready')
+                    else
+                        this.#publishStatusEvent(false)
+                }
+
+                constructor() {
+                    if (window.python) return window.python
+
+                    this.#execResolve = 'not ready'
+
+                    window.addEventListener('message', event => {
+                        if (event.source !== this.#getElement('sandbox').contentWindow) return
+                        this.#windowMessage(event.data)
+                    })
+
+                    this.#statusEventListeners = []
+                    window.python = this
+                }
+
+                addStatusEventListener(callback) {
+                    this.#statusEventListeners.push(callback)
+                }
+
+                #publishStatusEvent(ready) {
+                    this.#statusEventListeners.map(cb => cb(ready))
+                }
+
+                #sandboxReset(execRejectMsg) {
+                    const sandbox = this.#getElement('sandbox')
+                    const srcdoc = sandbox.srcdoc
+                    sandbox.srcdoc = ''
+                    sandbox.srcdoc = srcdoc
+                    this.#exec('reject', execRejectMsg, 'not ready')
+                }
+
+                #getElement(id) {
+                    if (!['output', 'sandbox'].includes(id))
+                        throw Error('Not a valid element: ' + id)
+                    return document.getElementById(id)
+                }
+
+                #output(msg) {
+                    this.#getElement('output').textContent += msg + '\n'
+                }
+
+                #windowMessage(event) {
+                    if (['not ready', undefined].includes(this.#execResolve)) {
+                        if (event.type == 'ready') {
+                            this.#execResolve = undefined
+                            this.#publishStatusEvent('ready')
+                        }
+                        return
+                    }
+
+                    console.log(event)
+
+                    switch (event.type) {
+                        case 'stdout':
+                            this.#execStdoutCounter += 1
+                            if (this.#execStdoutCounter <= 100)
+                                this.#output(event.data)
+                            else
+                                this.#sandboxReset('spam')
+                            break
+                        case 'exec_complete':
+                            this.#exec('resolve', event.data)
+                            break
+                        case 'exec_error':
+                            this.#exec('reject', event.data)
+                            break
+
+                    }
+                }
+
+                async run(code) {
+                    if (this.#execResolve) throw Error('Python is busy.')
+
+                    const execPromise = new Promise((resolve, reject) => {
+                        this.#execResolve = resolve
+                        this.#execReject = reject
+                    })
+
+                    this.#execStdoutCounter = 0
+                    this.#getElement('sandbox').contentWindow.postMessage(code, '*')
+                    this.#execTimeout = setTimeout(() => { this.#sandboxReset('timeout') }, 1000)
+                    return await execPromise
+                }
+            }
+            new PythonRuntime()
+
+            class Assignment {
+                #funcName
+                #argsGenerator
+                #argsCurrent
+                #solution
+                #solutionCurrent
+                #autoTesterRunning
+                #autoTesterStopping
+
+                constructor(funcName, argsGenerator, solution) {
+                    if (window.assignment) return window.assignment
+
+                    this.#funcName = funcName
+                    this.#argsGenerator = argsGenerator
+                    this.#solution = solution
+
+                    let firstRun = true
+
+                    window.python.addStatusEventListener(ready => {
+                        if (ready && firstRun) {
+                            this.newTestCase()
+                            firstRun = false
+                        }
+                    })
+
+                    window.python.addStatusEventListener(ready => {
+                        const run = this.#getElement('run')
+                        const newTest = this.#getElement('newTest')
+                        const autoTester = this.#getElement('autoTester')
+                        if (ready && !this.#autoTesterRunning) {
+                            run.disabled = false
+                            newTest.disabled = false
+                            autoTester.disabled = false
+                        }
+                        else {
+                            run.disabled = true
+                            newTest.disabled = true
+                            if (!this.#autoTesterRunning)
+                                autoTester.disabled = true
+                        }
+                    })
+
+                    window.assignment = this
+                }
+
+                #getElement(id) {
+                    return document.getElementById(id)
+                }
+
+                #clearFields() {
+                    this.#getElement('call').innerText = this.#getCall()
+                    this.#getElement('solution').innerText = this.#solutionCurrent
+                    this.#getElement('return').innerText = ' ' // Add space to prevent flickering
+                    this.#getElement('output').innerText = ''
+                    this.#getElement('gradeReturn').innerText = '❓'
+                    this.#getElement('gradeOutput').innerText = '❓'
+                    this.#getElement('feedback').innerText = ''
+                }
+
+                async newTestCase() {
+                    this.#argsCurrent = this.#argsGenerator()
+                    this.#solutionCurrent = await window.python.run(
+                        this.#solution + '\n\n' + this.#getCall()
+                    )
+                    this.#clearFields()
+                }
+
+                #getCall() {
+                    let call = this.#funcName + '('
+                    this.#argsCurrent.forEach(arg => {
+                        arg = '\n' + JSON.stringify(arg, null, 2)
+                        arg = arg.replaceAll('\n', '\n  ')
+                        call += arg + ','
+                    })
+                    return call.slice(0, -1) + '\n)'
+                }
+
+                #disableButtons() {
+                    this.#getElement('run').disabled = true
+                    this.#getElement('newTest').disabled = true
+                    //this.#getElement('autoTester').disabled = true
+                }
+
+                async test(source) {
+                    this.#disableButtons()
+                    this.#clearFields()
+
+                    try {
+                        var result = await window.python.run(source + '\n\n' + this.#getCall())
+                    } catch(error) {
+                        const feedback = this.#getElement('feedback')
+                        feedback.style.color = 'red'
+                        switch (error) {
+                            case 'crash':
+                                feedback.innerText = 'Programmet avslutades genom ett exception!'
+                                break
+                            case 'timeout':
+                                feedback.innerText = 'Programmet körde för länge. Evighetsloop?'
+                                break
+                            case 'spam':
+                                feedback.innerText = 'Programmet genererade för många utskrifter!'
+                                break
+                        }
+                        return false
+                    }
+
+                    this.#getElement('return').innerText = ''
+                    for (let i = 0; i < result.length; i++) {
+                        const span = document.createElement('span')
+                        span.innerText = result[i]
+                        span.style.color = 'green'
+                        if (result[i] !== this.#solutionCurrent[i])
+                            span.style.color = 'red'
+                        this.#getElement('return').appendChild(span)
+                    }
+
+                    let grade = true
+
+                    if (result === this.#solutionCurrent) {
+                        this.#getElement('gradeReturn').innerText = '✅'
+                    } else {
+                        this.#getElement('gradeReturn').innerText = '❌'
+                        grade = false
+                    }
+
+                    if (this.#getElement('output').innerHTML === '') {
+                        this.#getElement('gradeOutput').innerText = '✅'
+                    } else {
+                        this.#getElement('gradeOutput').innerText = '❌'
+                        grade = false
+                    }
+
+                    return grade
+                }
+
+                async autoTesterButtonClick() {
+                    this.#disableButtons()
+                    this.#autoTesterRunning = true
+
+                    const autoTesterButton = this.#getElement('autoTester')
+                    autoTester.onclick = () => {
+                        autoTesterButton.disabled = true
+                        this.#autoTesterStopping = true
+                    }
+
+                    let streakOfSuccess = 0
+                    const feedback = this.#getElement('feedback')
+                    while (!this.#autoTesterStopping) {
+                        await this.newTestCase()
+                        if (!await this.runButtonClick(false))
+                            break
+                        feedback.style.color = 'green'
+                        feedback.innerText = `${++streakOfSuccess} lyckade tester i rad!`
+                        await new Promise(resolve => { setTimeout(resolve, 100) })
+                    }
+
+                    this.#autoTesterRunning = false
+                    this.#autoTesterStopping = false
+                    autoTester.disabled = true
+                    try {
+                        await window.python.run('None') // This will enable buttons once Python is ready
+                    } catch (error) {}
+                    autoTester.onclick = () => {
+                        this.autoTesterButtonClick()
+                    }
+                }
+
+                async runButtonClick(disableAutoTesterButton=true) {
+                    this.#getElement('autoTester').disabled = disableAutoTesterButton
+                    return await this.test(this.#getElement('source').value)
+                }
+            }
+
+        </script>
+
+        <div id="content">
+            <div id="leftPanel">
+                <div id="description">
+                    <p>Definiera en funktion <strong>double</strong> som tar två heltal som argument.</p>
+                    <p>Funktionen ska returnera summan av de två heltalen.</p>
+                    <script>
+                        new Assignment(
+                            'double',
+                            () => {
+                                const args = []
+                                while (args.length < 2) {
+                                    args.push(Math.floor(Math.random() * 2000) - 1000)
+                                }
+                                return args
+                            },
+                            `def double(a, b):
+                                return a + b`
+                            )
+                    </script>
+                </div>
+                <textarea id="source"></textarea>
+            </div>
+            <div id="rightPanel">
+                <div id="buttons">
+                    <button id="run" disabled onclick="window.assignment.runButtonClick()">Kör!</button>
+                    <button id="newTest" disabled onclick="window.assignment.newTestCase()">Nytt test...</button>
+                    <button id="autoTester" disabled onclick="window.assignment.autoTesterButtonClick()">Auto Tester</button>
+                    <span id="feedback"></span>
+                </div>
+                &nbsp;Anrop:
+                <pre id="call"></pre>
+                &nbsp;Facit (JSON):
+                <pre id="solution"></pre>
+                &nbsp;Returvärde (JSON): <span id="gradeReturn"></span>
+                <pre id="return"></pre>
+                &nbsp;Utskrift: <span id="gradeOutput"></span>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </body>
+</html>
