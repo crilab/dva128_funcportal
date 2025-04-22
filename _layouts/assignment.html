@@ -410,22 +410,7 @@
         <div id="content">
             <div id="leftPanel">
                 <div id="description">
-                    <p>Definiera en funktion <strong>double</strong> som tar två heltal som argument.</p>
-                    <p>Funktionen ska returnera summan av de två heltalen.</p>
-                    <script>
-                        new Assignment(
-                            'double',
-                            () => {
-                                const args = []
-                                while (args.length < 2) {
-                                    args.push(Math.floor(Math.random() * 2000) - 1000)
-                                }
-                                return args
-                            },
-                            `def double(a, b):
-                                return a + b`
-                            )
-                    </script>
+                    {{ content }}
                 </div>
                 <textarea id="source"></textarea>
             </div>

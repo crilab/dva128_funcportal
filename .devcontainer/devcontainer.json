@@ -1,0 +1,20 @@
+{
+    "name": "DVA128 Funktionsportalen",
+    "onCreateCommand": "bundle install",
+    "updateContentCommand": "bundle update",
+    "postAttachCommand": "jekyll serve",
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "index.html"
+            ]
+        }
+    },
+    "portsAttributes": {
+        "4000": {
+            "label": "Application",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "forwardPorts": [4000]
+}
