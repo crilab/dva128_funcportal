@@ -3,20 +3,23 @@ layout: assignment
 title: Two Numbers Sum
 difficulty: 0
 ---
-Definiera en funktion **double** som tar två heltal som argument.
+Implementera:
+{% highlight python %}
+add(a: float, b: float) -> float:
+{% endhighlight %}
 
-Funktionen ska returnera summan av de två heltalen (som heltal).
+Funktionen ska returnera summan av de två flyttalen.
 
 <script>
 
 const solution = `
 
-def double(a, b):
+def add(a, b):
     return a + b
 
 `
 new Assignment(
-    'double',
+    'add',
     () => {
         const args = []
         while (args.length < 2) {
