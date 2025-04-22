@@ -1,6 +1,7 @@
 ---
 layout: assignment
 title: Two Numbers Sum
+difficulty: 0
 ---
 Definiera en funktion **double** som tar två heltal som argument.
 

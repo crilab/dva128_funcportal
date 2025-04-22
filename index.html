@@ -1,0 +1,50 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Funktionsportalen</title>
+        <style>
+            html, body {
+                height: 100%;
+                background: linear-gradient(white, #DDEEFF);
+            }
+            h1 {
+                text-align: center;
+                font-size: 15px;
+            }
+            #container {
+                width: 400px;
+                margin: 0 auto;
+                border: 1px solid black;
+                border-top: none;
+            }
+            #container > a:nth-child(odd) {
+                background: linear-gradient(white, #DDDDDD);
+            }
+            #container > a {
+                border-top: 1px solid black;
+                padding: 15px;
+                color: black;
+                background: linear-gradient(white, #FAFAFA);
+                text-decoration: none;
+                display: block;
+            }
+            #container > a:hover {
+                color: white;
+                background: linear-gradient(#555555, black);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>FUNKTIONSPORTALEN</h1>
+        <div id="container">
+            {% assign sorted_assignments = site.assignments | sort: "difficulty" %}
+            {% for assignment in sorted_assignments %}
+            <a href="{{ assignment.url }}">{{ assignment.title }}</a>
+            {% endfor %}
+        </div>
+    </body>
+</html>
