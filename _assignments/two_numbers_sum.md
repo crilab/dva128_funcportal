@@ -23,7 +23,7 @@ new Assignment(
     () => {
         const args = []
         while (args.length < 2) {
-            args.push(Math.floor(Math.random() * 2000) - 1000)
+            args.push((Math.floor(Math.random() * 200000) - 100000) / 100)
         }
         return args
     },
