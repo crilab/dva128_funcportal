@@ -136,8 +136,8 @@ new Assignment(
     "longest_common_prefix",
     () => {
         return [
-            words[randint(0, words.length)],
-            words[randint(0, words.length)]
+            words[randint(0, words.length-1)],
+            words[randint(0, words.length-1)]
         ]
     },
     solution
