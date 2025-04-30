@@ -8,7 +8,7 @@ Implementera:
 def translate(sentence: str, glossary: dict[str, str]) -> str:
 {% endhighlight %}
 
-Argumentet *glossary* är ett dictionary där varje nyckel är ett svenskt ord och värdet dess engelska direktöversättning.
+Argumentet **glossary** är ett dictionary där varje nyckel är ett svenskt ord och värdet dess engelska direktöversättning.
 
 Funktionen ska returnera en sträng där varje svenskt ord i **sentence** direköversatts enligt **glossary**.
 
