@@ -288,7 +288,6 @@
                     this.#getElement('output').innerText = ''
                     this.#getElement('gradeReturn').innerText = '❓'
                     this.#getElement('gradeOutput').innerText = '❓'
-                    this.#getElement('feedback').innerText = ''
                 }
 
                 async newTestCase() {
@@ -381,7 +380,7 @@
                     const feedback = this.#getElement('feedback')
                     while (!this.#autoTesterStopping) {
                         await this.newTestCase()
-                        if (!await this.runButtonClick(false))
+                        if (!await this.runButtonClick(false, false))
                             break
                         feedback.style.color = 'green'
                         feedback.innerText = `${++streakOfSuccess} lyckade tester i rad!`
@@ -399,7 +398,9 @@
                     }
                 }
 
-                async runButtonClick(disableAutoTesterButton=true) {
+                async runButtonClick(disableAutoTesterButton=true, clearFeedback=true) {
+                    if (clearFeedback)
+                        this.#getElement('feedback').innerText = ''
                     this.#getElement('autoTester').disabled = disableAutoTesterButton
                     return await this.test(this.#getElement('source').value)
                 }
