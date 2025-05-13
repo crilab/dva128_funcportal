@@ -59,6 +59,37 @@
             }
 
         </style>
+
+        <style>
+            button {
+                background: linear-gradient(to bottom, #007BFF, #0056b3);
+                border: 1px solid #004085;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                text-shadow: 0px 1px 1px black;
+                transition: background 0.3s ease;
+                margin: 5px;
+            }
+
+            button:hover {
+                background: linear-gradient(to bottom, #3399FF, #007BFF);
+            }
+
+            button:active {
+                background: linear-gradient(to bottom, #0056b3, #003f7f);
+            }
+
+            button:disabled {
+                background: linear-gradient(to bottom, #cccccc, #888888);
+                border: 1px solid grey;
+                cursor: not-allowed;
+                text-shadow: 0px 0px 1px black;
+            }
+        </style>
+
     </head>
     <body>
         <iframe id="sandbox" sandbox="allow-scripts" style="display: none;" srcdoc="
