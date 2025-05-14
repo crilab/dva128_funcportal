@@ -406,7 +406,7 @@
                 async autoTesterButtonClick() {
                     this.#getElement('source').disabled = true
                     this.#disableButtons()
-                    this.#getElement('feedback').innerText = ''
+                    this.#getElement('feedback').innerHTML = '&nbsp;'
                     this.#autoTesterRunning = true
 
                     const autoTesterButton = this.#getElement('autoTester')
@@ -440,7 +440,7 @@
 
                 async runButtonClick(disableAutoTesterButton=true, clearFeedback=true) {
                     if (clearFeedback)
-                        this.#getElement('feedback').innerText = ''
+                        this.#getElement('feedback').innerHTML = '&nbsp;'
                     this.#getElement('autoTester').disabled = disableAutoTesterButton
                     return await this.test(this.#getElement('source').value)
                 }
@@ -462,7 +462,7 @@
                     <button id="autoTester" disabled onclick="window.assignment.autoTesterButtonClick()">Auto Tester</button>
                 </div>
                 &nbsp;Feedback:
-                <pre id="feedback"></pre>
+                <pre id="feedback">&nbsp;</pre>
                 &nbsp;Anrop:
                 <pre id="call"></pre>
                 &nbsp;Facit (JSON):
