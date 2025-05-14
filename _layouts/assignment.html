@@ -411,7 +411,6 @@
 
                     const autoTesterButton = this.#getElement('autoTester')
                     autoTester.onclick = () => {
-                        this.#getElement('source').disabled = false
                         autoTesterButton.disabled = true
                         this.#autoTesterStopping = true
                     }
@@ -427,6 +426,7 @@
                         await new Promise(resolve => { setTimeout(resolve, 100) })
                     }
 
+                    this.#getElement('source').disabled = false
                     this.#autoTesterRunning = false
                     this.#autoTesterStopping = false
                     autoTester.disabled = true
