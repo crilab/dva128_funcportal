@@ -477,6 +477,23 @@
                     const end = this.selectionEnd;
                     this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
                     this.selectionStart = this.selectionEnd = start + 4;
+                } else if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    const currentLine = this.value.substring(0, start).split('\n').pop();
+                    const indentation = currentLine.match(/^\s*/)[0];
+                    this.value = this.value.substring(0, start) + '\n' + indentation + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 1 + indentation.length;
+                } else if (event.key === 'Backspace') {
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    const beforeCursor = this.value.substring(0, start);
+                    if (beforeCursor.endsWith('    ') && start === end) {
+                        event.preventDefault();
+                        this.value = this.value.substring(0, start - 4) + this.value.substring(end);
+                        this.selectionStart = this.selectionEnd = start - 4;
+                    }
                 }
             });
         </script>
