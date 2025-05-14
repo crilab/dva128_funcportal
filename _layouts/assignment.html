@@ -404,12 +404,14 @@
                 }
 
                 async autoTesterButtonClick() {
+                    this.#getElement('source').disabled = true
                     this.#disableButtons()
                     this.#getElement('feedback').innerText = ''
                     this.#autoTesterRunning = true
 
                     const autoTesterButton = this.#getElement('autoTester')
                     autoTester.onclick = () => {
+                        this.#getElement('source').disabled = false
                         autoTesterButton.disabled = true
                         this.#autoTesterStopping = true
                     }
