@@ -403,6 +403,7 @@
 
                 async autoTesterButtonClick() {
                     this.#disableButtons()
+                    this.#getElement('feedback').innerText = ''
                     this.#autoTesterRunning = true
 
                     const autoTesterButton = this.#getElement('autoTester')
