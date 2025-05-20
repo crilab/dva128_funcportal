@@ -3,10 +3,13 @@ layout: assignment
 title: Unique Items
 difficulty: 2
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def unique(*items) -> list:
 {% endhighlight %}
+
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
 Funktionen tar emot ett godtyckligt antal argument och returnerar en lista där varje unikt värde endast förekommer en gång, i den ordning de skickades in.
 
@@ -14,6 +17,18 @@ Du kan utgå från att inparametrarna endast är av typerna:
 - str
 - int
 - float
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function accepts an arbitrary number of arguments and returns a list where each unique value appears only once, in the order they were passed in.
+
+You can assume that the input parameters are only of the types:
+- str
+- int
+- float
+</div>
 
 <script>
 
