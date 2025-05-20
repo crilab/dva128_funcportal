@@ -387,13 +387,13 @@
                         feedback.style.color = 'red'
                         switch (error) {
                             case 'crash':
-                                feedback.innerText = 'Programmet avslutades genom ett exception!'
+                                feedback.innerText = 'The program terminated due to an exception.'
                                 break
                             case 'timeout':
-                                feedback.innerText = 'Programmet körde för länge. Evighetsloop?'
+                                feedback.innerText = 'Execution timed out — possible infinite loop?'
                                 break
                             case 'spam':
-                                feedback.innerText = 'Programmet genererade för många utskrifter!'
+                                feedback.innerText = 'The program generated too many outputs!'
                                 break
                         }
                         return false
