@@ -8,7 +8,13 @@ Implementera:
 absolute_value(a: float) -> float:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
 Funktionen ska returnera absolutbeloppet av det givna flyttalet.
+</div>
+
+<div class="english" markdown="1">
+The function should return the absolute value of the given floating-point number.
+</div>
 
 <script>
 
