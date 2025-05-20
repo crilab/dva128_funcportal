@@ -5,7 +5,7 @@ difficulty: 1
 ---
 Definition:
 {% highlight python %}
-concat_with_space(*strings: str) -> str:
+def concat_with_space(*strings: str) -> str:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

@@ -5,7 +5,7 @@ difficulty: 3
 ---
 Definition:
 {% highlight python %}
-find_oldest(people: list[dict]) -> str:
+def find_oldest(people: list[dict]) -> str:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

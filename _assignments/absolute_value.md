@@ -5,7 +5,7 @@ difficulty: 0
 ---
 Definition:
 {% highlight python %}
-absolute_value(a: float) -> float:
+def absolute_value(a: float) -> float:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

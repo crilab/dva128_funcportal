@@ -5,7 +5,7 @@ difficulty: 3
 ---
 Definition:
 {% highlight python %}
-filter_even(numbers: list[int]) -> list[int]:
+def filter_even(numbers: list[int]) -> list[int]:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

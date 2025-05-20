@@ -5,7 +5,7 @@ difficulty: 0
 ---
 Definition:
 {% highlight python %}
-is_even(a: int) -> bool:
+def is_even(a: int) -> bool:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

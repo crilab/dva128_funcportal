@@ -5,7 +5,7 @@ difficulty: 1
 ---
 Definition:
 {% highlight python %}
-is_prime(n: int) -> bool:
+def is_prime(n: int) -> bool:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

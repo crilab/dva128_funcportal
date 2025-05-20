@@ -5,7 +5,7 @@ difficulty: 3
 ---
 Definition:
 {% highlight python %}
-find(people: list[dict], age: int) -> list[str]:
+def find(people: list[dict], age: int) -> list[str]:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

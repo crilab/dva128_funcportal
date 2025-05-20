@@ -5,7 +5,7 @@ difficulty: 1
 ---
 Definition:
 {% highlight python %}
-longest_common_prefix(a: str, b: str) -> str:
+def longest_common_prefix(a: str, b: str) -> str:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

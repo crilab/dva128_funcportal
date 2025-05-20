@@ -5,7 +5,7 @@ difficulty: 1
 ---
 Definition:
 {% highlight python %}
-common_prefix_length(a: str, b: str) -> int:
+def common_prefix_length(a: str, b: str) -> int:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">

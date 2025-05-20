@@ -5,7 +5,7 @@ difficulty: 3
 ---
 Definition:
 {% highlight python %}
-find_last(people: list[dict], age: int) -> str:
+def find_last(people: list[dict], age: int) -> str:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">
