@@ -3,12 +3,22 @@ layout: assignment
 title: Reverse String
 difficulty: 0
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def reverse_string(a: str) -> str:
 {% endhighlight %}
 
-Funktionen ska returnera strängen `a` baklänges.
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
+Funktionen ska returnera strängen *a* baklänges.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return the string *a* reversed.
+</div>
 
 <script>
 
