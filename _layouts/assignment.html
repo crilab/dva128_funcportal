@@ -12,6 +12,14 @@
                 height: 100%;
             }
 
+            pre {
+                overflow: auto;
+            }
+
+            #content pre {
+                background-color: #EEEEEE;
+            }
+
             #content {
                 background-color: white;
                 height: 100%;
@@ -25,10 +33,26 @@
                 resize: horizontal;
                 overflow: auto;
                 width: 50%;
-                min-width: 200px;
+                min-width: 300px;
             }
 
+            .swedish, .english {
+                width: calc(50% - 5px);
+                margin-top: 5px;
+            }
+
+            .swedish::before, .english::before {
+                font-style: italic;
+                color: grey;
+            }
+
+            .swedish { float: left; }
+            .english { float: right; }
+            .swedish::before { content: '🇸🇪 Svenska'; }
+            .english::before { content: '🇬🇧 English'; }
+
             #source {
+                min-height: 100px;
                 flex: 1;
                 resize: none;
                 margin: 25px;
@@ -43,6 +67,7 @@
                 flex: 1;
                 border-left: 1px solid black;
                 min-width: 300px;
+                overflow-y: auto;
             }
 
             #rightPanel > div,
@@ -457,19 +482,19 @@
             </div>
             <div id="rightPanel">
                 <div id="buttons">
-                    <button id="run" disabled onclick="window.assignment.runButtonClick()">Kör!</button>
-                    <button id="newTest" disabled onclick="window.assignment.newTestCase()">Nytt test...</button>
+                    <button id="run" disabled onclick="window.assignment.runButtonClick()">Run!</button>
+                    <button id="newTest" disabled onclick="window.assignment.newTestCase()">New test...</button>
                     <button id="autoTester" disabled onclick="window.assignment.autoTesterButtonClick()">Auto Tester</button>
                 </div>
                 &nbsp;Feedback:
                 <pre id="feedback">&nbsp;</pre>
-                &nbsp;Anrop:
+                &nbsp;Call:
                 <pre id="call"></pre>
-                &nbsp;Facit (JSON):
+                &nbsp;Expected result (JSON):
                 <pre id="solution"></pre>
-                &nbsp;Returvärde (JSON): <span id="gradeReturn"></span>
+                &nbsp;Return value (JSON): <span id="gradeReturn"></span>
                 <pre id="return"></pre>
-                &nbsp;Utskrift: <span id="gradeOutput"></span>
+                &nbsp;Output: <span id="gradeOutput"></span>
                 <pre id="output"></pre>
             </div>
         </div>
