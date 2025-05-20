@@ -3,16 +3,30 @@ layout: assignment
 title: Age Finder
 difficulty: 3
 ---
-Implementera:
+Definition:
 {% highlight python %}
 find(people: list[dict], age: int) -> list[str]:
 {% endhighlight %}
+
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
 Argumentet *people* är en lista av dictionaries med nycklar:
 - **name**: *str*
 - **age**: *int*
 
 Funktionen ska returnera en lista med namnen på alla personer vars ålder är exakt lika med funktionens argument *age*.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The argument *people* is a list of dictionaries with keys:
+- **name**: *str*
+- **age**: *int*
+
+The function should return a list of the names of all people whose age is exactly equal to the function's argument *age*.
+</div>
 
 <script>
 
