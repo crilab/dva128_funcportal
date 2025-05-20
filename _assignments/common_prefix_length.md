@@ -9,10 +9,14 @@ common_prefix_length(a: str, b: str) -> int:
 {% endhighlight %}
 
 <div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera längden på det längsta gemensamma prefixet av de två strängarna.
 </div>
 
 <div class="english" markdown="1">
+Implement the function above.
+
 The function should return the length of the longest common prefix of the two strings.
 </div>
 
