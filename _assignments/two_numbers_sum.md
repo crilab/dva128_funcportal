@@ -3,12 +3,22 @@ layout: assignment
 title: Two Numbers Sum
 difficulty: 0
 ---
-Implementera:
+Definition:
 {% highlight python %}
-add(a: float, b: float) -> float:
+def add(a: float, b: float) -> float:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera summan av de två flyttalen.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return the sum of the two floating-point numbers.
+</div>
 
 <script>
 
