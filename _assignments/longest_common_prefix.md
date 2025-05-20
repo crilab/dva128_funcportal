@@ -3,14 +3,26 @@ layout: assignment
 title: Longest Common Prefix
 difficulty: 1
 ---
-Implementera:
+Definition:
 {% highlight python %}
 longest_common_prefix(a: str, b: str) -> str:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera den längsta gemensamma prefixen av de två strängarna.
 
 Om det inte finns några gemensamma tecken i början, returnera en tom sträng.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return the longest common prefix of the two strings.
+
+If there are no common characters at the beginning, return an empty string.
+</div>
 
 <script>
 
