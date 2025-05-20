@@ -3,12 +3,22 @@ layout: assignment
 title: Filter Even Numbers
 difficulty: 3
 ---
-Implementera:
+Definition:
 {% highlight python %}
-def filter_even(numbers: list[int]) -> list[int]:
+filter_even(numbers: list[int]) -> list[int]:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera en ny lista som innehåller alla jämna heltal från listan `numbers` i samma ordning som de förekommer.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return a new list containing all even integers from the list `numbers` in the same order as they appear.
+</div>
 
 <script>
 
