@@ -3,12 +3,22 @@ layout: assignment
 title: Concatenate Strings with Spaces
 difficulty: 1
 ---
-Implementera:
+Definition:
 {% highlight python %}
-def concat_with_space(*strings: str) -> str:
+concat_with_space(*strings: str) -> str:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera en sträng där alla inparametrar är hopfogade med ett mellanslag emellan.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return a string where all input parameters are concatenated with a space in between.
+</div>
 
 <script>
 
