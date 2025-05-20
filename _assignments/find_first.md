@@ -3,18 +3,34 @@ layout: assignment
 title: Find First
 difficulty: 3
 ---
-Implementera:
+Definition:
 {% highlight python %}
-def find_first(people: list[dict], age: int) -> str:
+find_first(people: list[dict], age: int) -> str:
 {% endhighlight %}
+
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
 Argumentet *people* är en lista av dictionaries med nycklar:
 - **name**: *str*
 - **age**: *int*
 
-Funktionen ska returnera namnet på den första personen vars ålder matchar med inparametern **age**.
+Funktionen ska returnera namnet på den första personen vars ålder matchar med inparametern *age*.
 
 Om ingen match hittas, returnera en tom sträng.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The argument *people* is a list of dictionaries with keys:
+- **name**: *str*
+- **age**: *int*
+
+The function should return the name of the first person whose age matches the input parameter *age*.
+
+If no match is found, return an empty string.
+</div>
 
 <script>
 
