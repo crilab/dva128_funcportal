@@ -3,7 +3,7 @@ layout: assignment
 title: Absolute Value
 difficulty: 0
 ---
-Implementera:
+Definition:
 {% highlight python %}
 absolute_value(a: float) -> float:
 {% endhighlight %}
