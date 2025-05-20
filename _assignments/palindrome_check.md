@@ -3,14 +3,26 @@ layout: assignment
 title: Palindrome Check
 difficulty: 1
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def is_palindrome(a: str) -> bool:
 {% endhighlight %}
 
-Funktionen ska returnera True om strängen `a` är en palindrom (samma framifrån och bakifrån), annars False.
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
+Funktionen ska returnera True om strängen *a* är en palindrom (samma framifrån och bakifrån), annars False.
 
 Endast alfanumeriska karaktärer ska beaktas och skiftläget ignoreras (så att exempelvis A och a betraktas som samma tecken).
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return True if the string *a* is a palindrome (the same forwards and backwards), otherwise False.
+
+Only alphanumeric characters should be considered and case should be ignored (so that, for example, A and a are considered the same character).
+</div>
 
 <script>
 
