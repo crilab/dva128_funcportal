@@ -3,12 +3,22 @@ layout: assignment
 title: Prime Checker
 difficulty: 1
 ---
-Implementera:
+Definition:
 {% highlight python %}
 is_prime(n: int) -> bool:
 {% endhighlight %}
 
-Funktionen ska returnera `True` om `a` är ett primtal, annars `False`. Du kan förutsätta att `a` alltid är ett positivt heltal större än 1.
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
+Funktionen ska returnera `True` om *a* är ett primtal, annars `False`. Du kan förutsätta att *a* alltid är ett positivt heltal större än 1.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return `True` if *n* is a prime number, otherwise `False`. You can assume that *n* is always a positive integer greater than 1.
+</div>
 
 <script>
 
