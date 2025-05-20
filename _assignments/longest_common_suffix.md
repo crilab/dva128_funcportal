@@ -3,14 +3,26 @@ layout: assignment
 title: Longest Common Suffix
 difficulty: 1
 ---
-Implementera:
+Definition:
 {% highlight python %}
-def longest_common_suffix(a: str, b: str) -> str:
+longest_common_suffix(a: str, b: str) -> str:
 {% endhighlight %}
+
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
 Funktionen ska returnera den längsta gemensamma suffixen (ändelsen) av två strängar.
 
 Om ingen gemensam suffix finns, returnera en tom sträng.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return the longest common suffix of two strings.
+
+If no common suffix exists, return an empty string.
+</div>
 
 <script>
 
