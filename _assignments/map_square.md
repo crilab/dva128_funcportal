@@ -3,12 +3,22 @@ layout: assignment
 title: Square Each Number
 difficulty: 3
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def map_square(numbers: list[int]) -> list[int]:
 {% endhighlight %}
 
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
+
 Funktionen ska returnera en ny lista där varje element är kvadraten av motsvarande element i den ursprungliga listan.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The function should return a new list where each element is the square of the corresponding element in the original list.
+</div>
 
 <script>
 
