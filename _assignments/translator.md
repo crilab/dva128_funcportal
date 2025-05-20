@@ -3,14 +3,26 @@ layout: assignment
 title: Translator
 difficulty: 2
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def translate(sentence: str, glossary: dict[str, str]) -> str:
 {% endhighlight %}
 
-Argumentet **glossary** är ett dictionary där varje nyckel är ett svenskt ord och värdet dess engelska direktöversättning.
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
-Funktionen ska returnera en sträng där varje svenskt ord i **sentence** direköversatts enligt **glossary**.
+Argumentet *glossary* är ett dictionary där varje nyckel är ett svenskt ord och värdet dess engelska direktöversättning.
+
+Funktionen ska returnera en sträng där varje svenskt ord i *sentence* direköversatts enligt *glossary*.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The argument *glossary* is a dictionary where each key is a Swedish word and the value is its direct English translation.
+
+The function should return a string where each Swedish word in *sentence* has been directly translated according to *glossary*.
+</div>
 
 <script>
 
