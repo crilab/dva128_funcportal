@@ -3,10 +3,13 @@ layout: assignment
 title: Sort By Age
 difficulty: 3
 ---
-Implementera:
+Definition:
 {% highlight python %}
 def sort_by_age(people: list[dict]) -> list[str]:
 {% endhighlight %}
+
+<div class="swedish" markdown="1">
+Implementera funktionen ovan.
 
 Argumentet *people* är en lista av dictionaries med nycklar:
 - **name**: *str*
@@ -15,6 +18,19 @@ Argumentet *people* är en lista av dictionaries med nycklar:
 Funktionen ska returnera en lista med alla namn, sorterade efter ålder i stigande ordning.
 
 Du kan förutsätta att samtliga personer har unika åldrar.
+</div>
+
+<div class="english" markdown="1">
+Implement the function above.
+
+The argument *people* is a list of dictionaries with keys:
+- **name**: *str*
+- **age**: *int*
+
+The function should return a list of all names, sorted by age in ascending order.
+
+You can assume that all people have unique ages.
+</div>
 
 <script>
 
