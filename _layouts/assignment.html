@@ -447,7 +447,7 @@
                         if (!await this.runButtonClick(false, false))
                             break
                         feedback.style.color = 'green'
-                        feedback.innerText = `${++streakOfSuccess} lyckade tester i rad!`
+                        feedback.innerText = `${++streakOfSuccess} successful tests in a row!`
                         await new Promise(resolve => { setTimeout(resolve, 100) })
                     }
 
